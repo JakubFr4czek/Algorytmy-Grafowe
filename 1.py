@@ -8,7 +8,7 @@ def findSet(parent, x):
         parent[x] = findSet(parent, parent[x])
     return parent[x]
 
-def Union(parent, rank, x, y):
+def union(parent, rank, x, y):
 
     x = findSet(parent, x)
     y = findSet(parent, y)
@@ -21,49 +21,41 @@ def Union(parent, rank, x, y):
         if rank[x] == rank[y]:
             rank[y] += 1
 
-def Kurskal(G, V):
+def maxMinWeight(G, V, s, t):
     
-    for i in range(len(G)):
-        G[i] = (-G[i][2], G[i][0], G[i][1])
+    G.sort(key = lambda x: x[2], reverse = True)
 
-    heap = []
-
-    for i in range(len(G)):
-        heapq.heappush(heap, G[i])
-        #Sortuje w kolejnosci [0], [1], [2] jesli chodzi o krotke
-
-    A = []
     parent = [i for i in range(V + 1)]
     rank = [0 for _ in range(V + 1)]
 
-    while len(heap) > 0:
+    result = float('inf')
+
+    for (v1, v2, w) in G:
+
+        #Wrzucam oba wierzcholki do zbioru
+        union(parent, rank, v1, v2)
+
+        result = min(result, w)
+
+        #jesli s i t sa w zbiorze to mozna konczyc
+
+        k1 = findSet(parent, s)
+        k2 = findSet(parent, t)
+
+        if k1 == k2:
+            return result
         
-        temp = heapq.heappop(heap)
+    return None
 
-        k1 = findSet(parent, temp[1])
-        k2 = findSet(parent, temp[2])
+#V, L = loadWeightedGraph("/home/jakubfraczek/Dokumenty/AlgorytmyGrafowe/graphs-lab1/g1")
+V, L = loadWeightedGraph("C:\\Users\\48667\\Documents\\AGH UST\\Algorytmy-Grafowe\\graphs-lab1\\g1")
 
-        if k1 != k2:
-            A.append((temp[1], temp[2], -temp[0]))
-            Union(parent, rank, temp[1], temp[2])
-    return A
+s = 1
+t = 2
 
+result = maxMinWeight(L, V, s, t)
 
+print(result)
 
-
-
-
-V, L = loadWeightedGraph("/home/jakubfraczek/Dokumenty/AlgorytmyGrafowe/graphs-lab1/g1")
-
-#L[0] - a1
-#L[1] - a1
-#L[2] - w
-print(L)
-G = Kurskal(L, V)
-print(G)
-
-x = readSolution("/home/jakubfraczek/Dokumenty/AlgorytmyGrafowe/graphs-lab1/g1")
-print(x)
-#print(G)
-
-#Znaleźć scieske z s (1) do t (2)
+#x = readSolution("/home/jakubfraczek/Dokumenty/AlgorytmyGrafowe/graphs-lab1/g1")
+x = readSolution("C:\\Users\\48667\\Documents\\AGH UST\\Algorytmy-Grafowe\\graphs-lab1\\g1")

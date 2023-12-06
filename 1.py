@@ -54,8 +54,8 @@ trues = 0
 
 for str in Graphs:
 
-    #V, L = loadWeightedGraph("/home/jakubfraczek/Dokumenty/AlgorytmyGrafowe/graphs-lab1/g1")
-    V, L = loadWeightedGraph("C:\\Users\\48667\\Documents\\AGH UST\\Algorytmy-Grafowe\\graphs-lab1\\" + str)
+    V, L = loadWeightedGraph("/home/jakubfraczek/Dokumenty/AlgorytmyGrafowe/graphs-lab1/" + str)
+    #V, L = loadWeightedGraph("C:\\Users\\48667\\Documents\\AGH UST\\Algorytmy-Grafowe\\graphs-lab1\\" + str)
 
     s = 1
     t = 2
@@ -64,8 +64,8 @@ for str in Graphs:
 
     print("Rozwiazanie dla ", str, ": ", result)
 
-    #x = readSolution("/home/jakubfraczek/Dokumenty/AlgorytmyGrafowe/graphs-lab1/g1")
-    x = readSolution("C:\\Users\\48667\\Documents\\AGH UST\\Algorytmy-Grafowe\\graphs-lab1\\" + str)
+    x = readSolution("/home/jakubfraczek/Dokumenty/AlgorytmyGrafowe/graphs-lab1/g1")
+    #x = readSolution("C:\\Users\\48667\\Documents\\AGH UST\\Algorytmy-Grafowe\\graphs-lab1\\" + str)
 
     if result == int(x):
         trues += 1

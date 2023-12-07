@@ -17,11 +17,11 @@ def lexBFS(G, v):
 
     while len(lista) > 0:
         
-        print( lista)
+        #print( lista)
 
         temp = lista[-1].pop()
 
-        print(temp)
+        #print(temp)
 
         visited[temp] = True
 
@@ -57,37 +57,59 @@ def listify(V, L):
 
         G[v1 - 1].append( (v2 - 1) )
         G[v2 - 1].append( (v1 - 1) )
-
     return G
 
-def checkLexBFS(G, vs):
-    n = len(G)
-    pi = [None] * n
-    for i, v in enumerate(vs):
-        pi[v] = i
+def getNeighbours(G, v):
 
-    Ni = set()
-    Nj = set()
+    neighbours = []
 
-    for i in range(n-1):
-        for j in range(i+1, n-1):
-      
-            for k in range(len(G[vs[i]])):
-                Ni.add(G[vs[i]][k])
+    for i in range(len(G[v])):
 
-            for k in range(len(G[vs[j]])):
-                Nj.add(G[vs[j]][k])
+        neighbours.append(G[v][i])
 
-            verts = [pi[v] for v in Nj - Ni if pi[v] < i]
-            if verts:
-                viable = [pi[v] for v in Ni - Nj]
-                if not viable or min(verts) <= min(viable):
-                    return False
-    return True
+    return neighbours
+
+def getNeighboursColors(G, neighbours, colors):
+
+    neighboursColors = set()
+
+    for n in neighbours:
+
+        neighboursColors.add(colors[n])
+
+    return neighboursColors
+
+def colorGraph(G, lex):
+
+    colors = [0 for _ in range(len(lex))]
+
+    usedColors = set()
+
+    for v in lex:
+
+        neighbours = getNeighbours(G, v)
+        neighboursColors = getNeighboursColors(G, neighbours, colors)
+        nextColor = 0
+
+        notUsed = list(usedColors - neighboursColors)
+        
+        if(len(notUsed) > 0):
+            nextColor = notUsed[0]
+
+        if nextColor == 0 and len(usedColors) == 0:
+            nextColor = 1
+        elif nextColor == 0 and len(usedColors) > 0:
+            nextColor = list(usedColors)[-1] + 1
+
+
+        colors[v] = nextColor
+        usedColors.add(nextColor)
+
+    return max(colors)
 
 
 Graphs = []
-directory = "graphs-lab4/chordal/"
+directory = "graphs-lab4/coloring/"
 
 # iterate over files in 
 # that directory
@@ -98,24 +120,26 @@ for filename in os.scandir(directory):
 trues = 0
 falses = 0
 
-Graphs = []
-Graphs.append(directory + "cycle6")
+#Graphs = []
+#Graphs.append(directory + "cycle6")
 
 for str in Graphs:
+
+    if str == directory + ".path.swp":
+        continue
 
     V, L = loadWeightedGraph(str)
 
     G = listify(V, L)
 
-    result = lexBFS(G, 0)
+    lex = lexBFS(G, 0)
 
-    #print("Rozwiazanie dla ", str, ": ", result)
+    result = colorGraph(G, lex)
+
     
-    print(result)
+    x = readSolution(str)
     
-    x = checkLexBFS(G, result)
-    
-    if x:
+    if int(x) == result:
         trues += 1
         print("Zgodne ze wzrorcowym rozwiązaniem")
     else:

@@ -2,16 +2,16 @@
 
 Repozytorium zawiera rozwiązania zadań z przedmiotu Algorytmy Grafowe.
 
-## Laboratorium 1
+## Laboratorium 1 - Rozgrzewka
 [Zad1](./1.py)
 
-## Laboratorium 2
+## Laboratorium 2 - Maksymalny przepływ
 [Zad2.1](./2.1.py) \
 \
 [Zad2.2](./2.2.py)
 
 
-## Laboratorium 3 
+## Laboratorium 3 - Spójność krawędziowa
 [Zad3.1](./3.1.py) \
 \
 [Zad3.2](./3.2.py) \
@@ -21,7 +21,7 @@ Repozytorium zawiera rozwiązania zadań z przedmiotu Algorytmy Grafowe.
 [Zad3.4](./3.4.py)
 
 
-## Laboratorium 4
+## Laboratorium 4 - Grafy przekątniowe
 [Zad4.1](./4.1.py) \
 \
 [Zad4.2](./4.2.py) \

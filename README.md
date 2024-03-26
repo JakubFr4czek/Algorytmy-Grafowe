@@ -33,5 +33,5 @@ Repozytorium zawiera rozwiązania zadań z przedmiotu Algorytmy Grafowe.
 ## Projekt 1
 Program przechodzi małą część testów, oceniony na +0.5 do oceny końcowej \
 \
-[Zad4.4](./project1)
+[Projekt 1](./project1)
 
